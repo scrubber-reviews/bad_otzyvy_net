@@ -73,9 +73,9 @@ class BadOtzyvyNet:
                 new_review.author.name = review_soup\
                     .select_one('span.reviewer').text
                 if review_soup.find('div', class_=['bad']):
-                    new_review.status = _StatusReview.positive
-                else:
                     new_review.status = _StatusReview.negative
+                else:
+                    new_review.status = _StatusReview.positive
                 yield new_review
 
     def _get_page(self, page):
