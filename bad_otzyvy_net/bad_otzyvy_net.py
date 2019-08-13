@@ -2,6 +2,7 @@
 
 """Main module."""
 import re
+import time
 from enum import Enum
 from urllib.parse import urljoin
 
@@ -61,6 +62,9 @@ class BadOtzyvyNet:
         page = 1
         while True:
             soup = self._get_page(page)
+            page += 1
+            if len(soup.find_all('div', id='comment')) == 0:
+                break
             for review_soup in soup.find_all('div', id='comment'):
                 new_review = Review()
                 new_review.text = review_soup.find(
@@ -73,10 +77,10 @@ class BadOtzyvyNet:
                 else:
                     new_review.status = _StatusReview.negative
                 yield new_review
-            else:
-                break
 
     def _get_page(self, page):
+        time.sleep(0.9)
+        self.logger.send_info('parse page: {}'.format(page))
         resp = self.session.get(urljoin(self.BASE_URL,
                                         '/engine/ajax/comments.php'
                                         '?cstart={page}'
@@ -164,3 +168,4 @@ if __name__ == '__main__':
     prov.start()
     for r in prov.reviews:
         print(r.get_dict())
+    print(len(prov.reviews))

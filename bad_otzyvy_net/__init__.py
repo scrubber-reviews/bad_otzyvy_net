@@ -5,7 +5,7 @@ from .bad_otzyvy_net import _StatusReview, BadOtzyvyNet, Rating
 
 __author__ = """NMelis"""
 __email__ = 'melis.zhoroev+scrubbers@gmail.com'
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 __title__ = __name__ = 'bad-otzyvy.net'
 __description__ = 'Bad-Good: Отзывы о компаниях'
 __slug_img_link__ = 'https://i.ibb.co/9WyqSk0/image.png'
